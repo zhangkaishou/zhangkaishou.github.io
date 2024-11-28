@@ -1,45 +1,33 @@
-开发自己的php扩展包
-一、创建扩展包目录结构
-1. 创建目录hoo-tool，在目录下创建目录 src
-2. 在hoo-tool 目录下 运行命令：composer init
-
-3. 运行完命令的效果
-
-{
-    "name": "hoo/tool",
-    "description": "hoo Tool kit for PHP",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Hoo\\Tool\\": "src/"
+<html>
+    <h1 id="h1--php-"><a name="开发自己的php扩展包" class="reference-link"></a><span class="header-link octicon octicon-link"></span>开发自己的php扩展包</h1><h3 id="h3--"><a name="一、创建扩展包目录结构" class="reference-link"></a><span class="header-link octicon octicon-link"></span>一、创建扩展包目录结构</h3><h5 id="h5-1-hoo-tool-src"><a name="1. 创建目录hoo-tool，在目录下创建目录 src" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1. 创建目录hoo-tool，在目录下创建目录 src</h5><h5 id="h5-2-hoo-tool-composer-init"><a name="2. 在hoo-tool 目录下 运行命令：composer init" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2. 在hoo-tool 目录下 运行命令：composer init</h5><p><img src="/storage/202409/80b41a2d8f500aee623bad79544d5600.png" alt="图片alt" title="&#39;图片title&#39;"></p>
+<h5 id="h5-3-"><a name="3. 运行完命令的效果" class="reference-link"></a><span class="header-link octicon octicon-link"></span>3. 运行完命令的效果</h5><p><img src="/storage/202409/3b2ea006046b0fdd61b075aea7ba0b86.png" alt="图片alt" title="&#39;图片title&#39;"></p>
+<pre><code class="lang-json">{
+    &quot;name&quot;: &quot;hoo/tool&quot;,
+    &quot;description&quot;: &quot;hoo Tool kit for PHP&quot;,
+    &quot;type&quot;: &quot;library&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: {
+            &quot;Hoo\\Tool\\&quot;: &quot;src/&quot;
         }
     },
-    "authors": [
+    &quot;authors&quot;: [
         {
-            "name": "hoo",
-            "email": "hoo@example.com"
+            &quot;name&quot;: &quot;hoo&quot;,
+            &quot;email&quot;: &quot;hoo@example.com&quot;
         }
     ],
-    "minimum-stability": "alpha",
-    "require": {}
+    &quot;minimum-stability&quot;: &quot;alpha&quot;,
+    &quot;require&quot;: {}
 }
-
-二、编写composer.json文件
-
-本文PHP版本是使用8.2
-所以在composer.json 中编写，指定require的PHP版本：
-
-"require": {
-        "php": ">=8.0"
+</code></pre>
+<h3 id="h3--composer-json-"><a name="二、编写composer.json文件" class="reference-link"></a><span class="header-link octicon octicon-link"></span>二、编写composer.json文件</h3><p>本文PHP版本是使用8.2<br>所以在composer.json 中编写，指定require的PHP版本：</p>
+<pre><code class="lang-json">&quot;require&quot;: {
+        &quot;php&quot;: &quot;&gt;=8.0&quot;
     }
-
-三、编写扩展包的PHP代码
-1. 编写一个响应工具，Hoo\Tool这个命名空间对应src目录
-
-在src目录下创建 ResultTool.class类
-
-<?php
+</code></pre>
+<h3 id="h3--php-"><a name="三、编写扩展包的PHP代码" class="reference-link"></a><span class="header-link octicon octicon-link"></span>三、编写扩展包的PHP代码</h3><h5 id="h5-1-hoo-tool-src-"><a name="1. 编写一个响应工具，Hoo\Tool这个命名空间对应src目录" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1. 编写一个响应工具，Hoo\Tool这个命名空间对应src目录</h5><p>在src目录下创建 ResultTool.class类</p>
+<pre><code class="lang-php">&lt;?php
 
 namespace Hoo\Tool;
 
@@ -63,7 +51,7 @@ class ResultTool
      * @param array $data
      * @return array
      */
-    public static function error(string $message = '', int $code = ErrorCode::ERROR, array $data = []): array
+    public static function error(string $message = &#39;&#39;, int $code = ErrorCode::ERROR, array $data = []): array
     {
         if (empty($message)) {
             return static::end($code, ErrorCode::getMessage($code), $data);
@@ -81,19 +69,15 @@ class ResultTool
     protected static function end($code, $message, $data): array
     {
         return [
-            'code' => $code,
-            'message' => $message,
-            'data' => $data,
+            &#39;code&#39; =&gt; $code,
+            &#39;message&#39; =&gt; $message,
+            &#39;data&#39; =&gt; $data,
         ];
     }
 }
-
-2. 编写一个响应工具的状态码类
-
-src目录下创建Constants目录
-创建ErrorCode.class
-
-<?php
+</code></pre>
+<h5 id="h5-2-"><a name="2. 编写一个响应工具的状态码类" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2. 编写一个响应工具的状态码类</h5><p>src目录下创建Constants目录<br>创建ErrorCode.class</p>
+<pre><code class="lang-php">&lt;?php
 
 namespace Hoo\Tool\Constants;
 
@@ -106,20 +90,17 @@ class ErrorCode
     public static function getMessage(int $code): string
     {
         $errors = [
-            0 => 'Server Error！',
-            200 => 'success',
+            0 =&gt; &#39;Server Error！&#39;,
+            200 =&gt; &#39;success&#39;,
             // Add more as needed
         ];
 
-        return $errors[$code] ?? 'Unknown error';
+        return $errors[$code] ?? &#39;Unknown error&#39;;
     }
 }
-
-3. 再编写一个日志工具
-
-在src目录创建 LoggerUtil.class类
-
-<?php
+</code></pre>
+<h5 id="h5-3-"><a name="3. 再编写一个日志工具" class="reference-link"></a><span class="header-link octicon octicon-link"></span>3. 再编写一个日志工具</h5><p>在src目录创建 LoggerUtil.class类</p>
+<pre><code class="lang-php">&lt;?php
 
 namespace Hoo\Tool;
 
@@ -127,9 +108,9 @@ namespace Hoo\Tool;
 class LoggerUtil
 {
     private string $filePath;
-    private string $dirName = './runtime/logs/'; // 日志文件目录
+    private string $dirName = &#39;./runtime/logs/&#39;; // 日志文件目录
     private float|int $maxFileSize = 2 * 1024 * 1024; // 2MB 文件大小限制
-    private string $datePattern = 'Y-m-d'; // 日志文件命名中的日期格式
+    private string $datePattern = &#39;Y-m-d&#39;; // 日志文件命名中的日期格式
     private bool $rollingType = true; // true按文件大小滚动,false按日期滚动
 
     /**
@@ -137,20 +118,20 @@ class LoggerUtil
      */
     private function checkAndRollFile()
     {
-        $dir_path = dirname($this->filePath);
+        $dir_path = dirname($this-&gt;filePath);
         if (!file_exists($dir_path)) {
             mkdir($dir_path, 0755, true); // 0755 表示权限，true 表示递归创建
         }
 
         // 检查是否需要按日期滚动
-        if (!$this->rollingType && file_exists($this->filePath) && date($this->datePattern) !== date($this->datePattern, filemtime($this->filePath))) {
-            $this->rollByDate();
+        if (!$this-&gt;rollingType &amp;&amp; file_exists($this-&gt;filePath) &amp;&amp; date($this-&gt;datePattern) !== date($this-&gt;datePattern, filemtime($this-&gt;filePath))) {
+            $this-&gt;rollByDate();
         }
 
         // 检查文件大小
-        clearstatcache(true, $this->filePath);
-        if ($this->rollingType && file_exists($this->filePath) && filesize($this->filePath) >= $this->maxFileSize) {
-            $this->rollBySize();
+        clearstatcache(true, $this-&gt;filePath);
+        if ($this-&gt;rollingType &amp;&amp; file_exists($this-&gt;filePath) &amp;&amp; filesize($this-&gt;filePath) &gt;= $this-&gt;maxFileSize) {
+            $this-&gt;rollBySize();
         }
     }
 
@@ -159,8 +140,8 @@ class LoggerUtil
      */
     private function rollByDate()
     {
-        $newPath = $this->getNewFilePath(true);
-        rename($this->filePath, $newPath);
+        $newPath = $this-&gt;getNewFilePath(true);
+        rename($this-&gt;filePath, $newPath);
     }
 
     /**
@@ -168,8 +149,8 @@ class LoggerUtil
      */
     private function rollBySize()
     {
-        $newPath = $this->getNewFilePath(false, true);
-        rename($this->filePath, $newPath);
+        $newPath = $this-&gt;getNewFilePath(false, true);
+        rename($this-&gt;filePath, $newPath);
     }
 
     /**
@@ -181,18 +162,18 @@ class LoggerUtil
      */
     private function getNewFilePath($byDate = false, $forcedBySize = false)
     {
-        $baseName = pathinfo($this->filePath, PATHINFO_FILENAME);
-        $extension = pathinfo($this->filePath, PATHINFO_EXTENSION);
-        $dirName = pathinfo($this->filePath, PATHINFO_DIRNAME);
+        $baseName = pathinfo($this-&gt;filePath, PATHINFO_FILENAME);
+        $extension = pathinfo($this-&gt;filePath, PATHINFO_EXTENSION);
+        $dirName = pathinfo($this-&gt;filePath, PATHINFO_DIRNAME);
 
-        $suffix = '';
+        $suffix = &#39;&#39;;
         if ($byDate) {
-            $suffix = '_' . date($this->datePattern);
+            $suffix = &#39;_&#39; . date($this-&gt;datePattern);
         } elseif ($forcedBySize) {
-            $suffix = '_size_' . date('Hi');
+            $suffix = &#39;_size_&#39; . date(&#39;Hi&#39;);
         }
 
-        return "{$dirName}/{$baseName}{$suffix}.{$extension}";
+        return &quot;{$dirName}/{$baseName}{$suffix}.{$extension}&quot;;
     }
 
     /**
@@ -203,49 +184,39 @@ class LoggerUtil
      * @param string $label
      * @return bool
      */
-    public static function write(string $fileName, mixed $content, string $label = ''): bool
+    public static function write(string $fileName, mixed $content, string $label = &#39;&#39;): bool
     {
         $instance = new self();
-        $instance->filePath = $instance->dirName . date('Ymd') . '/' . $fileName . '.log';
-        $instance->checkAndRollFile();
+        $instance-&gt;filePath = $instance-&gt;dirName . date(&#39;Ymd&#39;) . &#39;/&#39; . $fileName . &#39;.log&#39;;
+        $instance-&gt;checkAndRollFile();
         if (is_string($content)) {
-            $content = "[" . date("Y-m-d H:i:s") . "] " . $label . ' ' . $content . PHP_EOL;
+            $content = &quot;[&quot; . date(&quot;Y-m-d H:i:s&quot;) . &quot;] &quot; . $label . &#39; &#39; . $content . PHP_EOL;
         } else {
-            $content = "[" . date("Y-m-d H:i:s") . "] " . $label . PHP_EOL . var_export($content, true) . PHP_EOL;
+            $content = &quot;[&quot; . date(&quot;Y-m-d H:i:s&quot;) . &quot;] &quot; . $label . PHP_EOL . var_export($content, true) . PHP_EOL;
         }
 
         // 写入日志
-        $result = file_put_contents($instance->filePath, $content, FILE_APPEND);
+        $result = file_put_contents($instance-&gt;filePath, $content, FILE_APPEND);
 
         return $result !== false;
     }
 
 
 }
-
-引入自己开发的包
-1. 编辑composer.json文件
-
-在项目中引入未提交的包
-
-"repositories": [
+</code></pre>
+<h1 id="h1-u5F15u5165u81EAu5DF1u5F00u53D1u7684u5305"><a name="引入自己开发的包" class="reference-link"></a><span class="header-link octicon octicon-link"></span>引入自己开发的包</h1><h5 id="h5-1-composer-json-"><a name="1. 编辑composer.json文件" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1. 编辑composer.json文件</h5><p>在项目中引入未提交的包</p>
+<pre><code class="lang-json">&quot;repositories&quot;: [
     {
-      "type": "path",
-      "url": "包的觉得路径"
+      &quot;type&quot;: &quot;path&quot;,
+      &quot;url&quot;: &quot;包的觉得路径&quot;
     }
   ]
-
-
-url的配置示例：
-
-windows “D:\docker-code\code\hoo-tool”
-linux：”/code/hoo-tool”
-2. 引入包
-
-composer require hoo/tool
-
-3. 使用包
-<?php
+</code></pre>
+<p>url的配置示例：</p>
+<ul>
+<li>windows “D:\docker-code\code\hoo-tool”</li><li>linux：”/code/hoo-tool”</li></ul>
+<h5 id="h5-2-"><a name="2. 引入包" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2. 引入包</h5><p><code>composer require hoo/tool</code></p>
+<h5 id="h5-3-"><a name="3. 使用包" class="reference-link"></a><span class="header-link octicon octicon-link"></span>3. 使用包</h5><pre><code class="lang-php">&lt;?php
 
 declare(strict_types=1);
 
@@ -258,14 +229,17 @@ class IndexController extends AbstractController
 {
     public function index()
     {
-        LoggerUtil::write('test',' Check If The Application Is Under Maintenance','test');
-        return ResultTool::success('获取成功',[
-            'method' => 'post',
-            'message' => "Hello hoo-tool",
+        LoggerUtil::write(&#39;test&#39;,&#39; Check If The Application Is Under Maintenance&#39;,&#39;test&#39;);
+        return ResultTool::success(&#39;获取成功&#39;,[
+            &#39;method&#39; =&gt; &#39;post&#39;,
+            &#39;message&#39; =&gt; &quot;Hello hoo-tool&quot;,
         ]);
-        return ResultTool::error('服务器错误',500,[
-            'method' => 'post',
-            'message' => "Hello hoo-tool",
+        return ResultTool::error(&#39;服务器错误&#39;,500,[
+            &#39;method&#39; =&gt; &#39;post&#39;,
+            &#39;message&#39; =&gt; &quot;Hello hoo-tool&quot;,
         ]);
     }
 }
+</code></pre>
+
+</html>
